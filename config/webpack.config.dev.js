@@ -104,6 +104,8 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
+          /\.scss$/,
+          /\.less$/,
           /\.json$/,
           /\.svg$/
         ],
@@ -123,7 +125,10 @@ module.exports = {
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
-          cacheDirectory: true
+          cacheDirectory: true,
+          plugins: [
+              ['import', [{ libraryName: 'antd', style: true }]]
+          ]
         }
       },
       // "postcss" loader applies autoprefixer to our CSS.
@@ -148,6 +153,14 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!postcss!sass?sourceMap=true'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!postcss!less?{modifyVars:{"@primary-color": "#00bbab"}}'
       }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
