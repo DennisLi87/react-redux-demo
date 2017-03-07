@@ -13,6 +13,7 @@ import './utils/util';
 
 let store = createStore(reducers);
 
+console.log(store.getState());
 render(
     <Provider store={ store }>
         <App />
